@@ -1,0 +1,22 @@
+{
+  "name": "twilio-web-chatbot",
+  "version": "1.0.0",
+  "description": "A Node.js project for interacting with the OpenAI API.",
+  "main": "src/chatbot.js",
+  "type": "module",
+  "scripts": {
+    "chat": "node src/chatbot.js",
+    "chat-history": "node src/redis-chat-history.js",
+    "test": "jest"
+  },
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "openai": "4.49.1",
+    "redis": "^5.0.1"
+  },
+  "devDependencies": {
+    "jest": "^27.0.0"
+  },
+  "author": "",
+  "license": "ISC"
+}

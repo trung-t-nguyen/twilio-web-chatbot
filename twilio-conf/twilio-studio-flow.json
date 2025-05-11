@@ -1,0 +1,180 @@
+{
+    "description": "Bot flow for creating a Flex webchat task",
+    "states": [
+      {
+        "name": "Trigger",
+        "type": "trigger",
+        "transitions": [
+          {
+            "next": "set_initial_variables",
+            "event": "incomingMessage"
+          },
+          {
+            "event": "incomingCall"
+          },
+          {
+            "next": "set_initial_variables",
+            "event": "incomingConversationMessage"
+          },
+          {
+            "next": "set_initial_variables",
+            "event": "incomingRequest"
+          },
+          {
+            "event": "incomingParent"
+          }
+        ],
+        "properties": {
+          "offset": {
+            "x": 0,
+            "y": -10
+          }
+        }
+      },
+      {
+        "name": "error_handler",
+        "type": "send-and-wait-for-reply",
+        "transitions": [
+          {
+            "next": "get_chat_bot_answer",
+            "event": "incomingMessage"
+          },
+          {
+            "event": "timeout"
+          },
+          {
+            "event": "deliveryFailure"
+          }
+        ],
+        "properties": {
+          "offset": {
+            "x": -300,
+            "y": 450
+          },
+          "service": "{{trigger.message.InstanceSid}}",
+          "channel": "{{trigger.message.ChannelSid}}",
+          "from": "{{flow.channel.address}}",
+          "message_type": "custom",
+          "body": "My apologies, I'm currently unable to assist. Please check back in a bit.",
+          "timeout": "3600"
+        }
+      },
+      {
+        "name": "get_chat_bot_answer",
+        "type": "run-function",
+        "transitions": [
+          {
+            "next": "send_chat_bot_answer_to_customer",
+            "event": "success"
+          },
+          {
+            "next": "error_handler",
+            "event": "fail"
+          }
+        ],
+        "properties": {
+          "service_sid": "ZSb84e33c85cd20fc13b1ab54f3dd4158d",
+          "environment_sid": "ZE836600e9371700c3f56d3db00e8b9258",
+          "offset": {
+            "x": 280,
+            "y": 1000
+          },
+          "function_sid": "ZH0cf07295268ade928e34ac30185c821c",
+          "parameters": [
+            {
+              "value": "{{flow.variables.customerQuery}}",
+              "key": "query"
+            },
+            {
+              "value": "{{flow.variables.customerEmail}}",
+              "key": "customerEmail"
+            }
+          ],
+          "url": "https://z-bot-bridge-1265.twil.io/ask-with-chat-history"
+        }
+      },
+      {
+        "name": "send_chat_bot_answer_to_customer",
+        "type": "send-and-wait-for-reply",
+        "transitions": [
+          {
+            "next": "set_customer_reply_to_variables",
+            "event": "incomingMessage"
+          },
+          {
+            "event": "timeout"
+          },
+          {
+            "event": "deliveryFailure"
+          }
+        ],
+        "properties": {
+          "offset": {
+            "x": 380,
+            "y": 1240
+          },
+          "service": "{{trigger.message.InstanceSid}}",
+          "channel": "{{trigger.message.ChannelSid}}",
+          "from": "{{flow.channel.address}}",
+          "message_type": "custom",
+          "body": "{{widgets.get_chat_bot_answer.parsed.body}}",
+          "timeout": "3600"
+        }
+      },
+      {
+        "name": "set_customer_reply_to_variables",
+        "type": "set-variables",
+        "transitions": [
+          {
+            "next": "get_chat_bot_answer",
+            "event": "next"
+          }
+        ],
+        "properties": {
+          "variables": [
+            {
+              "type": "string",
+              "value": "{{widgets.send_chat_bot_answer_to_customer.inbound.Body}}",
+              "key": "customerQuery"
+            }
+          ],
+          "offset": {
+            "x": 910,
+            "y": 970
+          }
+        }
+      },
+      {
+        "name": "set_initial_variables",
+        "type": "set-variables",
+        "transitions": [
+          {
+            "next": "get_chat_bot_answer",
+            "event": "next"
+          }
+        ],
+        "properties": {
+          "variables": [
+            {
+              "type": "string",
+              "value": "{{trigger.conversation.Body}}",
+              "key": "customerQuery"
+            },
+            {
+              "type": "string",
+              "value": "{{trigger.conversation.ChannelAttributes.pre_engagement_data.email}}",
+              "key": "customerEmail"
+            }
+          ],
+          "offset": {
+            "x": 560,
+            "y": 570
+          }
+        }
+      }
+    ],
+    "initial_state": "Trigger",
+    "flags": {
+      "allow_concurrent_calls": true
+    }
+  }
