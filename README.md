@@ -11,6 +11,28 @@ Try the live demo: [Twilio Web Chatbot](https://trung-t-nguyen.github.io/ttng/)
 - OpenAI-powered responses
 - Node.js backend server - Twilio Function
 
+## Technical Stack
+
+### Chat Interface and Management
+- **Twilio Webchat 3.0** ([Documentation](https://www.twilio.com/docs/flex/developer/conversations/webchat))
+  - Provides the chat UI components
+  - Handles conversation orchestration
+
+### AI Model
+- **GitHub Copilot Model** ([Documentation](https://docs.github.com/en/github-models))
+  - Based on `openai/gpt-4-mini`
+  - Powers natural language understanding and response generation
+
+### Backend Integration
+- **Twilio Functions**
+  - Serverless service (similar to AWS Lambda or Azure Functions)
+  - Manages integration between webchat and AI model
+
+### Conversation Storage
+- **Redis Cloud** ([Documentation](https://redis.io/cloud/))
+  - Stores chat history
+  - Enables contextual conversations by maintaining session state
+
 ## Prerequisites
 
 - Node.js (v14 or higher)
