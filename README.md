@@ -13,11 +13,6 @@ Try the live demo: [Twilio Web Chatbot](https://trung-t-nguyen.github.io/ttng/)
 
 ## Architecture Overview
 
-![Architecture Diagram](assets/architecture-diagram.png)
-
-<details>
-<summary>View Mermaid Diagram Code</summary>
-
 ```mermaid
 graph TB
     subgraph "Frontend"
@@ -53,7 +48,6 @@ graph TB
     style AI fill:#feb,stroke:#333
     style Redis fill:#ff9,stroke:#333
 ```
-</details>
 
 ## Technical Stack
 
