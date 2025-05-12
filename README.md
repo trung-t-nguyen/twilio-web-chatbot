@@ -2,7 +2,7 @@
 
 This project is a web-based chatbot application that integrates Twilio's messaging services with OpenAI's capabilities. It provides a chat interface for users to interact with an AI-powered bot.
 
-Try the live demo: [Twilio Web Chatbot](https://trung-t-nguyen.github.io/ttng/)
+Try the live demo:  <a href="https://trung-t-nguyen.github.io/ttng/" target="_blank">Twilio Web Chatbot</a>
 
 ## Features
 
@@ -52,26 +52,26 @@ graph TB
 ## Technical Stack
 
 ### Chat Interface and Management
-- **Twilio Webchat 3.0** ([Documentation](https://www.twilio.com/docs/flex/developer/conversations/webchat))
+- **Twilio Webchat 3.0** (<a href="https://www.twilio.com/docs/flex/developer/conversations/webchat" target="_blank">Documentation</a>)
   - Provides the chat UI components
   - Handles conversation orchestration
 
 ### AI Model
-- **GitHub Copilot Model** ([Documentation](https://docs.github.com/en/github-models))
+- **GitHub Copilot Model** (<a href="https://docs.github.com/en/github-models" target="_blank">Documentation</a>)
   - Based on `openai/gpt-4-mini`
   - Powers natural language understanding and response generation
 
 ### Backend Integration
-- **Twilio Studio Flow** ([Documentation](https://www.twilio.com/docs/studio))
+- **Twilio Studio Flow** (<a href="https://www.twilio.com/docs/studio" target="_blank">Documentation</a>)
   - Orchestrates conversation workflows
   - Manages message routing and flow logic
   - Handles conversation state transitions
-- **Twilio Functions**
+- **Twilio Functions** (<a href="https://www.twilio.com/docs/serverless/functions-assets/functions" target="_blank">Documentation</a>)
   - Serverless service (similar to AWS Lambda or Azure Functions)
   - Manages integration between webchat and AI model
 
 ### Conversation Storage
-- **Redis Cloud** ([Documentation](https://redis.io/cloud/))
+- **Redis Cloud** (<a href="https://redis.io/cloud/" target="_blank">Documentation</a>)
   - Stores chat history
   - Enables contextual conversations by maintaining session state
 
