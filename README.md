@@ -11,6 +11,50 @@ Try the live demo: [Twilio Web Chatbot](https://trung-t-nguyen.github.io/ttng/)
 - OpenAI-powered responses
 - Node.js backend server - Twilio Function
 
+## Architecture Overview
+
+![Architecture Diagram](assets/architecture-diagram.png)
+
+<details>
+<summary>View Mermaid Diagram Code</summary>
+
+```mermaid
+graph TB
+    subgraph "Frontend"
+        UI[Website]
+        Chat[Twilio Webchat 3.0]
+    end
+
+    subgraph "Twilio Services"
+        Flow[Studio Flow]
+        TF[Twilio Functions]
+    end
+
+    subgraph "Backend Services"
+        AI[GitHub Copilot AI]
+        Redis[(Redis Cloud)]
+    end
+
+    UI --> Chat
+    Chat -->|Send Message| Flow
+    Flow -->|Route Messages| TF
+    TF -->|Query Context| Redis
+    TF -->|Generate Response| AI
+    AI -->|Return Response| TF
+    TF -->|Store History| Redis
+    TF -->|Return Response| Flow
+    Flow -->|Process Response| Chat
+    Chat -->|Display| UI
+
+    style UI fill:#f9f,stroke:#333
+    style Chat fill:#bbf,stroke:#333
+    style Flow fill:#fbb,stroke:#333
+    style TF fill:#bfb,stroke:#333
+    style AI fill:#feb,stroke:#333
+    style Redis fill:#ff9,stroke:#333
+```
+</details>
+
 ## Technical Stack
 
 ### Chat Interface and Management
@@ -24,6 +68,10 @@ Try the live demo: [Twilio Web Chatbot](https://trung-t-nguyen.github.io/ttng/)
   - Powers natural language understanding and response generation
 
 ### Backend Integration
+- **Twilio Studio Flow** ([Documentation](https://www.twilio.com/docs/studio))
+  - Orchestrates conversation workflows
+  - Manages message routing and flow logic
+  - Handles conversation state transitions
 - **Twilio Functions**
   - Serverless service (similar to AWS Lambda or Azure Functions)
   - Manages integration between webchat and AI model
